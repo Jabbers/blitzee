@@ -1,0 +1,19 @@
+{
+  "name": "blitzee",
+  "version": "0.6.4",
+  "description": "A minimalist mobile-first single-page web app framework",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "framework",
+    "single-page",
+    "web app",
+    "onsen"
+  ],
+  "author": "Fred Steegmans",
+  "license": "Apache-2.0",
+  "repository": "github:jabbers/blitzee",
+  "devDependencies": {
+  }
+}
