@@ -5,22 +5,6 @@ Blitzee by beehive /u/jabman
 - Quick setup: no building required, edit config & done
 - Light-weight: SPA using only Onsen UI & vanilla JS (no libraries or jquery)
 - Low maintenance: always loads latest version of Onsen (CDN)
-
-Setup
-
-1. Edit options (index.html line 7), along with <title> and <meta> descr above
-2. For reference, here's how the options should look:
-      var options = {
-        urlRoot: 'https://yourdomain.com/',
-        analyticsEnabled: true,
-        analyticsId: 'UA-',
-        homePageIndex: 0,
-        pageUrls: ['home', 'our-services', 'about-us'],
-        pageTitles: ['My Site - This how we do', 'X to the Z', 'About Us']
-      };
-3. Site consists of a menu and pages: first edit the menu (index.html line 35)
-4. Put page content in <template id="tpl-about-us"><page id="about-us"> tags
-5. That's it. You shouldn't (need to) touch anything in this file, by the way
 */
 
 var blitzee = (function (options) {
