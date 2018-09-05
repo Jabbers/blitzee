@@ -7,11 +7,10 @@ Blitzee by beehive /u/jabman
 - Low maintenance: always loads latest version of Onsen (CDN)
 */
 
-var blitzee = (function (options) {
-
+var blitzee = function(options) {
   var isLocal = document.location.href.indexOf('file://') > -1;
 
-  console.log('blitzee v0.6.4 by beehive (u/jabman)');
+  console.log('blitzee v0.6.5 by beehive (u/jabman)');
 
   // Load Google Analytics & send a pageview
   if (options.analyticsEnabled && !isLocal) {
@@ -22,7 +21,7 @@ var blitzee = (function (options) {
   if (/complete|interactive|loaded/.test(document.readyState)) {
     setInitialPage();
   } else {
-    document.addEventListener("DOMContentLoaded",  setInitialPage);
+    document.addEventListener('DOMContentLoaded', setInitialPage);
   }
 
   // Listen for Onsen's (page) init event to trigger onPageLoad()
@@ -35,44 +34,56 @@ var blitzee = (function (options) {
 
   // Setting document-level event handlers
   // Alternatively, use onclick="blitzee.goPage('contact')"
-  document.addEventListener('click', function (event) {
-    var elHref = event.target.closest('[href]');
-    if (elHref) {
-      var elMenu = elHref.closest('ons-splitter-side');
-      var href = elHref.getAttribute('href');
-      var slash = href.lastIndexOf('/');
-      var stub = slash === -1 ? href : href.substring(slash + 1);
-      // Catch page link clicks
-      for (var i = 0; i < options.pageUrls.length; i++) {
-        if (options.pageUrls[i] == stub) {
-          event.preventDefault();
-          goPage(stub).then(function() { return elMenu ? elMenu.close() : false }); // goes to homepage if stub is '', or 'home', or 0
-          return false;
+  document.addEventListener(
+    'click',
+    function(event) {
+      var elHref = event.target.closest('[href]');
+      if (elHref) {
+        var elMenu = elHref.closest('ons-splitter-side');
+        var href = elHref.getAttribute('href');
+        var slash = href.lastIndexOf('/');
+        var stub = slash === -1 ? href : href.substring(slash + 1);
+        // Catch page link clicks
+        for (var i = 0; i < options.pageUrls.length; i++) {
+          if (options.pageUrls[i] == stub) {
+            event.preventDefault();
+            goPage(stub).then(function() {
+              return elMenu ? elMenu.close() : false;
+            }); // goes to homepage if stub is '', or 'home', or 0
+            return false;
+          }
         }
       }
-    }
-    // No reason to interfere; Carry on with the default
-    return;
-  }, false);
+      // No reason to interfere; Carry on with the default
+      return;
+    },
+    false
+  );
 
   // Onsen is fully loaded:
-  ons.ready(function () {
+  ons.ready(function() {
     console.log('onsen ready');
     ons.disableIconAutoPrefix();
     var nav = document.getElementById('myNavigator');
 
     // nav.catch(function(err) { options.debug && console.log(err); });
 
-    nav.bringPageTop(nav.page)
-      .catch(function(err) { options.debug && console.log(err); });
+    nav.bringPageTop(nav.page).catch(function(err) {
+      options.debug && console.log(err);
+    });
     if (options.analyticsEnabled && !isLocal) {
-      var isHomepage = (nav.page == 'tpl-' + options.pageUrls[options.homePageIndex]);
+      var isHomepage =
+        nav.page == 'tpl-' + options.pageUrls[options.homePageIndex];
       sendPageViewAnalytics(isHomepage ? '' : nav.page.replace('tpl-', ''));
     }
     // Hide modals onclick
-    document.querySelector('ons-modal').onclick = function() { this.hide(); };
+    document.querySelector('ons-modal').onclick = function() {
+      this.hide();
+    };
     // Theme switchin' across the universe.. on the Starship Enterprise, under capt'n Kirk
-    document.getElementById('switchStyle').addEventListener('change', switchTheme);
+    document
+      .getElementById('switchStyle')
+      .addEventListener('change', switchTheme);
     initializeTheme();
   });
 
@@ -81,22 +92,40 @@ var blitzee = (function (options) {
     goPage: goPage,
     submitForm: submitForm,
     showActionSheet: showActionSheet,
-    showMenu: function() { document.getElementById('menu').open(); },
-    closeMenu: function() { document.getElementById('menu').close(); },
-    setActiveTab: function(tpl) {
-      var index = options.pageUrls.indexOf(tpl.replace('tpl-', ''));
-      document.getElementById('tabbar').setActiveTab(index);
-    },
-    showModal: function(el) {
-      var src = el.getAttribute('src').replace('-th', '');
-      document.querySelector('ons-modal img').setAttribute('src', src);
-      document.querySelector('ons-modal').show();
-    },
-    closeModal: function() { document.querySelector('ons-modal').hide(); },
+    showMenu: showMenu,
+    closeMenu: closeMenu,
+    setActiveTab: setActiveTab,
+    showModal: showModal,
+    closeModal: closeModal
   };
 
+  // What follows are all function declarations
+  function showMenu() {
+    document.getElementById('menu').open();
+  }
+
+  function closeMenu() {
+    document.getElementById('menu').close();
+  }
+
+  function setActiveTab(tpl) {
+    var index = options.pageUrls.indexOf(tpl.replace('tpl-', ''));
+    document.getElementById('tabbar').setActiveTab(index);
+  }
+
+  function showModal(el) {
+    var src = el.getAttribute('src').replace('-th', '');
+    document.querySelector('ons-modal img').setAttribute('src', src);
+    document.querySelector('ons-modal').show();
+  }
+
+  function closeModal() {
+    document.querySelector('ons-modal').hide();
+  }
+
   // Public methods (exposed through return statement)
-  function goPage(page) { // -1 for back
+  function goPage(page) {
+    // -1 for back
     var nav = document.getElementById('myNavigator');
     var homeStub = options.pageUrls[options.homePageIndex];
     if (page === 0 || page === 'home') {
@@ -104,26 +133,31 @@ var blitzee = (function (options) {
     }
     if (page === -1 && history.notOnLandingPage) {
       history.go(-1);
-      return nav.popPage()
-        .then(function(pg) { // returns a thenable promise
-          var pageNew = pg.getAttribute('id') == homeStub ? '' : pg.getAttribute('id');
+      return nav
+        .popPage()
+        .then(function(pg) {
+          // returns a thenable promise
+          var pageNew =
+            pg.getAttribute('id') == homeStub ? '' : pg.getAttribute('id');
           if (options.analyticsEnabled && !isLocal) {
             sendPageViewAnalytics(pageNew);
-
           }
         })
-        .catch(function(err) { options.debug && console.log(err); });
+        .catch(function(err) {
+          options.debug && console.log(err);
+        });
     } else {
-      page = (page === -1 || page === homeStub) ? '' : page; // -1 means homePage's pageUrl
+      page = page === -1 || page === homeStub ? '' : page; // -1 means homePage's pageUrl
       if (!isLocal) {
-        history.pushState({page: page}, '', '/' + page);
+        history.pushState({ page: page }, '', '/' + page);
       }
       history.notOnLandingPage = true;
       if (options.analyticsEnabled && !isLocal) {
         sendPageViewAnalytics(page);
       }
-      return nav.bringPageTop('tpl-' + (page || homeStub))
-        .catch(function(err) { options.debug && console.log(err); }); // returns a thenable promise
+      return nav.bringPageTop('tpl-' + (page || homeStub)).catch(function(err) {
+        options.debug && console.log(err);
+      }); // returns a thenable promise
     }
   }
 
@@ -133,15 +167,17 @@ var blitzee = (function (options) {
       label: 'Close',
       icon: 'md-close'
     });
-    ons.openActionSheet({
-      title: title,
-      cancelable: true,
-      buttons: data[title]
-    }).then(function (index) {
-      if (data[title][index].href) {
-        window.open(data[title][index].href);
-      }
-    });
+    ons
+      .openActionSheet({
+        title: title,
+        cancelable: true,
+        buttons: data[title]
+      })
+      .then(function(index) {
+        if (data[title][index].href) {
+          window.open(data[title][index].href);
+        }
+      });
   }
 
   // Private methods
@@ -165,8 +201,11 @@ var blitzee = (function (options) {
   function showInitialPage(event) {
     var page = history.state ? history.state.page : null;
     var nav = document.getElementById('myNavigator');
-    nav.bringPageTop('tpl-' + (page || options.pageUrls[options.homePageIndex]))
-      .catch(function(err) { options.debug && console.log(err); });
+    nav
+      .bringPageTop('tpl-' + (page || options.pageUrls[options.homePageIndex]))
+      .catch(function(err) {
+        options.debug && console.log(err);
+      });
   }
 
   // Used as an event callback i.e. onsubmit="blitzee.onSubmit"
@@ -175,19 +214,22 @@ var blitzee = (function (options) {
     // Bind the FormData object and the form element ('this' in this context)
     var FD = new FormData(elem.closest('form'));
     // Define what happens on successful data submission
-    XHR.addEventListener("load", function(ev) {
+    XHR.addEventListener('load', function(ev) {
       var res = JSON.parse(ev.target.responseText);
-      var title = (ev.target.status == 201 ? 'Success' : 'Failed');
+      var title = ev.target.status == 201 ? 'Success' : 'Failed';
       ons.notification.alert(res.message, { title: title, cancelable: true });
     });
     // Define what happens in case of error
-    XHR.addEventListener("error", function(ev) {
+    XHR.addEventListener('error', function(ev) {
       var res = JSON.parse(ev.target.responseText);
-      ons.notification.alert(res.message, { title: 'Failed', cancelable: true });
+      ons.notification.alert(res.message, {
+        title: 'Failed',
+        cancelable: true
+      });
     });
     console.log('sending');
     // Set up our request
-    XHR.open("POST", options.formPostUrl);
+    XHR.open('POST', options.formPostUrl);
     // The data sent is what the user provided in the form
     XHR.send(FD);
   }
@@ -209,17 +251,23 @@ var blitzee = (function (options) {
     // Call google's script dynamically
     var firstel = document.getElementsByTagName('script')[0];
     var gel = document.createElement('script');
-    gel.src = 'https://www.googletagmanager.com/gtag/js?id=' + options.analyticsId;
+    gel.src =
+      'https://www.googletagmanager.com/gtag/js?id=' + options.analyticsId;
     firstel.parentNode.insertBefore(gel, firstel);
     gtag('js', new Date()); // gtag's a private function adapted from google's snippet
-    gtag('config', options.analyticsId, { 'send_page_view': false });
+    gtag('config', options.analyticsId, { send_page_view: false });
   }
 
   function sendPageViewAnalytics(page) {
     gtag('event', 'page_view', {
-      'page_title': options.pageTitles[options.pageUrls.indexOf(page) === -1 ? options.homePageIndex : options.pageUrls.indexOf(page)],
-      'page_location': options.urlRoot + page,
-      'page_path': '/' + page
+      page_title:
+        options.pageTitles[
+          options.pageUrls.indexOf(page) === -1
+            ? options.homePageIndex
+            : options.pageUrls.indexOf(page)
+        ],
+      page_location: options.urlRoot + page,
+      page_path: '/' + page
     });
   }
 
@@ -228,7 +276,7 @@ var blitzee = (function (options) {
     document.body.classList.toggle('darkness');
     // event.value is true for Sunshine
     document.querySelector('link[title=Sunshine]').disabled = !event.value;
-    localStorage.setItem("style", event.value ? "Sunshine" : "Darkness");
+    localStorage.setItem('style', event.value ? 'Sunshine' : 'Darkness');
   }
 
   function initializeTheme(event) {
@@ -239,21 +287,22 @@ var blitzee = (function (options) {
       document.getElementById('switchStyle').checked = true;
     }
   }
-});
+};
 
 // Polyfills
 if (!Element.prototype.matches) {
-  Element.prototype.matches = Element.prototype.msMatchesSelector ||
+  Element.prototype.matches =
+    Element.prototype.msMatchesSelector ||
     Element.prototype.webkitMatchesSelector;
 }
 if (!Element.prototype.closest) {
   Element.prototype.closest = function(s) {
-      var el = this;
-      if (!document.documentElement.contains(el)) return null;
-      do {
-          if (el.matches(s)) return el;
-          el = el.parentElement || el.parentNode;
-      } while (el !== null && el.nodeType === 1);
-      return null;
+    var el = this;
+    if (!document.documentElement.contains(el)) return null;
+    do {
+      if (el.matches(s)) return el;
+      el = el.parentElement || el.parentNode;
+    } while (el !== null && el.nodeType === 1);
+    return null;
   };
 }
