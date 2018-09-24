@@ -10,21 +10,21 @@
 <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 <link rel="stylesheet" href="app.min.css">
 {{#block "head"}}
-<title>{{@local.pages.homepage}}</title>
+<title>{{@local.pages.0.seo}}</title>
 <meta name="description" content="{{@local.description}}">
 <script src="app.min.js"></script>
 <script>
-blitzee = blitzee({
+blitzee = blitzee(Object.assign({
   urlRoot: '{{@local.url}}',
   analyticsEnabled: true,
   analyticsId: '{{@local.analyticsId}}',
   homePageIndex: 0,
-  pageUrls: [{{#each @local.pages}}'{{@key}}', {{/each}}],
-  pageTitles: [{{#each @local.pages}}'{{this}}', {{/each}}],
+  pageUrls: [{{#each @local.pages}}'{{name}}', {{/each}}],
+  pageTitles: [{{#each @local.pages}}'{{seo}}', {{/each}}],
   formPostUrl: '{{@local.formTarget}}',
   pageScripts: {},
   debug: false
-});
+}, options || {}));
 </script>
 {{/block}}
 </head>

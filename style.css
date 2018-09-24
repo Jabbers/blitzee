@@ -55,6 +55,9 @@ fieldset + fieldset {
   width: 100%;
   display: inline-block;
 }
+footer .text-input {
+  width: 95%;
+}
 textarea.text-input {
   height:auto;
 }
@@ -150,7 +153,7 @@ ons-list-item.flex-dir {
     display: inline-block;
   }
   footer {
-    background: url(../img/iota_icon_light.svg) right center/contain no-repeat;
+    background: url(img/iota_icon_light.svg) right center/contain no-repeat;
     padding-right: 6em;
   }
   ons-col.twelve {
@@ -405,6 +408,10 @@ footer {
   font-size: 1.2em;
   height: 1.5em;
 }
+label {
+  font-size: 1.2em;
+  line-height: 1.75;
+}
 caption {
   font-size: 1.2em;
   border-radius: 2em 2em 0 0;
@@ -487,7 +494,7 @@ body.darkness {
   color: #333;
 }
 .sunshine footer {
-  background-image: url(../img/iota_icon_black.svg);
+  background-image: url(img/iota_icon_black.svg);
 }
 .darkness .action-sheet-button--material, .darkness .action-sheet-button {
   background-color: #191c1f;
@@ -536,198 +543,11 @@ body.darkness {
   width: 1em;
   height: 1.25em;
   vertical-align: middle;
-  background-image: url(../img/iota_icon_light.svg);
+  background-image: url(img/iota_icon_light.svg);
   background-repeat: no-repeat;
   background-position: right 2px center;
   background-size: contain;
 }
 .sunshine .fa-iota-icon, .sunshine .iota-icon {
-  background-image: url(../img/iota_icon_black.svg);
+  background-image: url(img/iota_icon_black.svg);
 }
-
-
-
-/****************************************************** Site-specific: MAW **/
-
-.circle {
-  border-radius: 50%;
-  border: 1px solid #52565a;
-  min-width: 60px;
-  margin: 0 18px 0 -12px;
-}
-ons-carousel.center {
-  height: 110px;
-}
-
-
-
-/*********************************************** Site-specific: IOTAPRICES **/
-
-.darkness iframe.trends {
-  filter: sepia(25%) saturate(500%) hue-rotate(310deg) invert(83%);
-}
-.darkness .tanglemonitor img {
-  margin-left: -25px;
-}
-.darkness .tanglemonitor img {
-  filter: sepia(50%) saturate(300%) hue-rotate(308deg) invert(82%);
-}
-.bars ons-list-item ons-icon {
-  vertical-align: bottom;
-  color: #ccc;
-}
-.bars ons-list-item ons-icon[icon="md-block"] {
-  position: absolute;
-  z-index: 1;
-  color: #d0001c;
-  opacity: 0.8;
-  padding-left: 3px;
-}
-.bars ons-list-item .divider {
-  border-right: 1px solid #ccc;
-  padding-right: 9px;
-}
-.bars ons-list-header ons-icon {
-  margin-left: 3px;
-}
-.price_bar:hover {
-  cursor: pointer;
-}
-.price_bar:hover .progress-bar {
-  background-color: #202327;
-}
-.sunshine .progress-bar {
-  background-color: #ccc;
-}
-.sunshine .price_bar:hover .progress-bar {
-  background-color: #eee;
-}
-.sunshine .progress-bar > div {
-  -webkit-filter: brightness(120%) saturate(120%);
-  filter: brightness(120%) saturate(120%);
-}
-.bars ons-list {
-  font-size:.9em;
-}
-.bars .list, .bars .list-header {
-  background-image:none;
-  background-color:transparent;
-}
-.bars .list-header {
-  padding: 10px 0 4px;
-}
-.bars .list-item {
-  color: #eee;
-  padding-left: 0;
-}
-.bars ons-list-item > div {
-  padding: 2px 0;
-}
-.progress-text {
-  padding: 0 .25em;
-  position: absolute;
-  z-index: 101;
-  top: 3px;
-  white-space: nowrap;
-}
-.progress-label {
-  padding: 0 .25em;
-  position: absolute;
-  z-index: 102;
-  bottom: 3px;
-  left: 0;
-  white-space: nowrap;
-}
-.progress-bar {
-  height:2.5em;
-  background-color: #272b30;
-}
-ons-card .title.flag-icon {
-  width: 100%;
-  background-position-x: right;
-}
-.darkness ons-col.act .button {
-  background-color: #0f9246;
-}
-.act { font-size: 1.1em; margin: .5em auto 0; text-align:center; overflow:hidden; }
-.act div { display: inline-block; }
-.act div.mobile { line-height: 1.5em; }
-.act .stack > span { font-size: 0.8em; vertical-align: bottom; line-height: 1.8em; }
-.act .stack > a ~ span { vertical-align: top; }
-.act ons-button { min-width: 5em; }
-.act .arrow { font-size: 1.25em; }
-.act .stack { vertical-align: top; }
-.act .bridge + .stack { padding-top: 3em; }
-.act .bridge { padding: 3em .5em 0; vertical-align: top; }
-.act .mobile { display: block; }
-.act .desktop { display: none; }
-
-@media (min-width: 480px) {
-  .act { font-size: 1.3em; margin-top:0; }
-  .act ons-button { font-size: .9em; }
-  .act .stack > span { font-size: .75em; }
-  .act .mobile { display: none; }
-  .act .desktop { display: inline-block; vertical-align:middle; line-height: 1.5; }
-  .act .bridge { padding: 0; vertical-align: super; }
-  .act .bridge span:first-child { font-size: 0.7em; }
-  .act .stack, .act .bridge + .stack { padding-top: 0; vertical-align: middle; }
-  .progress-bar > div {
-    background-image: url(../img/iota_icon_white.svg);
-    background-repeat: no-repeat;
-    background-position: right 2px center;
-    background-size: contain;
-    background-blend-mode: soft-light;
-  }
-}
-
-@media (min-width: 541px) {
-  .act .stack > span { font-size: .5em; }
-}
-
-@media (min-width: 768px) {
-  .act { font-size:1.9em; }
-  .progress-text {
-    top: auto;
-  }
-  .progress-label {
-    bottom: auto;
-    width: 100%;
-    left: -7px;
-    min-width: 150px;
-    text-align: right;
-  }
-  .progress-bar {
-    height:1.6em;
-  }
-  .progress-bar > div {
-    background-image: none;
-  }
-}
-
-/* flags see flags.min.css */
-.flag-icon-background{background-size:contain;background-position:50%;background-repeat:no-repeat}
-.flag-icon{background-size:contain;background-position:50%;background-repeat:no-repeat;position:relative;display:inline-block;width:1.33333333em;line-height:1em}
-.flag-icon:before{content:"\00a0"}
-.flag-icon.flag-icon-squared{width:1em}
-.flag-icon-lu{background-image:url(../img/flags/4x3/lu.svg)}
-.flag-icon-lu.flag-icon-squared{background-image:url(../img/flags/1x1/lu.svg)}
-.flag-icon-gb{background-image:url(../img/flags/4x3/gb.svg)}
-.flag-icon-gb.flag-icon-squared{background-image:url(../img/flags/1x1/gb.svg)}
-.flag-icon-us{background-image:url(../img/flags/4x3/us.svg)}
-.flag-icon-us.flag-icon-squared{background-image:url(../img/flags/1x1/us.svg)}
-.flag-icon-sg{background-image:url(../img/flags/4x3/sg.svg)}
-.flag-icon-sg.flag-icon-squared{background-image:url(../img/flags/1x1/sg.svg)}
-.flag-icon-kr{background-image:url(../img/flags/4x3/kr.svg)}
-.flag-icon-kr.flag-icon-squared{background-image:url(../img/flags/1x1/kr.svg)}
-.flag-icon-au{background-image:url(../img/flags/4x3/au.svg)}
-.flag-icon-au.flag-icon-squared{background-image:url(../img/flags/1x1/au.svg)}
-.flag-icon-hk{background-image:url(../img/flags/4x3/hk.svg)}
-.flag-icon-hk.flag-icon-squared{background-image:url(../img/flags/1x1/hk.svg)}
-.flag-icon-eu{background-image:url(../img/flags/4x3/eu.svg)}
-.flag-icon-eu.flag-icon-squared{background-image:url(../img/flags/1x1/eu.svg)}
-.flag-icon-ca{background-image:url(../img/flags/4x3/ca.svg)}
-.flag-icon-ca.flag-icon-squared{background-image:url(../img/flags/1x1/ca.svg)}
-.flag-icon-tw{background-image:url(../img/flags/4x3/tw.svg)}
-.flag-icon-tw.flag-icon-squared{background-image:url(../img/flags/1x1/tw.svg)}
-.flag-icon-in{background-image:url(../img/flags/4x3/in.svg)}
-.flag-icon-in.flag-icon-squared{background-image:url(../img/flags/1x1/in.svg)}
