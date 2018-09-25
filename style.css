@@ -136,9 +136,10 @@ ons-list-item.flex-dir {
 }
 .button--inline {
   min-height: initial;
-  padding: 1px 10px;
-  line-height: 18px;
-  font-size: 13px;
+  padding: 1px 10px 0;
+  vertical-align: text-bottom;
+  line-height: 1.4;
+  font-size: .8em;
 }
 .flash {
   animation: flash-anim 1s ease 0s 1 alternate !important;

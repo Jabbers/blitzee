@@ -45,7 +45,7 @@ var blitzee = function(options) {
         var stub = slash === -1 ? href : href.substring(slash + 1);
         // Catch page link clicks
         for (var i = 0; i < options.pageUrls.length; i++) {
-          if (options.pageUrls[i] == stub) {
+          if (options.pageUrls[i] == stub || ['/', ''].indexOf(stub) !== -1) {
             event.preventDefault();
             goPage(stub).then(function() {
               return elMenu ? elMenu.close() : false;
@@ -128,7 +128,7 @@ var blitzee = function(options) {
     // -1 for back
     var nav = document.getElementById('myNavigator');
     var homeStub = options.pageUrls[options.homePageIndex];
-    if (page === 0 || page === 'home') {
+    if ([0, '/', 'home', 'homepage'].indexOf(page) > -1) {
       page = '';
     }
     if (page === -1 && history.notOnLandingPage) {
