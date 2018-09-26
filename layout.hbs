@@ -24,7 +24,7 @@ blitzee = blitzee(Object.assign({
   formPostUrl: '{{@local.formTarget}}',
   pageScripts: {},
   debug: false
-}, options || {}));
+}, (typeof options === 'undefined' ? {} : options)));
 </script>
 {{/block}}
 </head>

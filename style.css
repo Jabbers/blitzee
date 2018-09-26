@@ -35,6 +35,12 @@ ons-input {
 ons-toolbar ons-icon {
   vertical-align: top;
 }
+ons-toolbar [icon="md-chevron-right"] {
+  margin-left: .5em;
+}
+ons-toolbar [icon="md-chevron-left"] {
+  margin-right: .5em;
+}
 ons-list-item ons-button.button--large {
   padding: 0 2px;
   margin-right: 8px;
@@ -123,6 +129,9 @@ ons-card.card {
 ons-card .list-header {
   padding-right: 0;
 }
+ons-button ons-icon {
+  margin-right: .5em;
+}
 .toolbar__right .button {
   display:none;
 }
@@ -137,9 +146,8 @@ ons-list-item.flex-dir {
 .button--inline {
   min-height: initial;
   padding: 1px 10px 0;
+  margin-right: .3em;
   vertical-align: text-bottom;
-  line-height: 1.4;
-  font-size: .8em;
 }
 .flash {
   animation: flash-anim 1s ease 0s 1 alternate !important;
@@ -410,12 +418,15 @@ footer {
   height: 1.5em;
 }
 label {
-  font-size: 1.2em;
-  line-height: 1.75;
+  line-height: 1.6;
 }
 caption {
   font-size: 1.2em;
   border-radius: 2em 2em 0 0;
+}
+.button--inline {
+  line-height: 1.4;
+  font-size: .8em;
 }
 
 @media (min-width: 480px) {
@@ -503,7 +514,7 @@ body.darkness {
 .darkness .action-sheet-title--material, .darkness .action-sheet-title {
   background-color: #141719;
 }
-.darkness ons-col img.white {
+.darkness ons-col img.white, .darkness iframe.trends {
   filter: sepia(50%) saturate(300%) hue-rotate(308deg) invert(82%);
 }
 .sunshine ons-modal img, #exchange-info ons-card img {
