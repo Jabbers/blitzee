@@ -10,7 +10,7 @@ Blitzee by beehive /u/jabman
 var blitzee = function(options) {
   var isLocal = document.location.href.indexOf('file://') > -1;
 
-  console.log('blitzee v0.6.5 by beehive (u/jabman)');
+  console.log('blitzee by beehive (u/jabman)');
 
   // Load Google Analytics & send a pageview
   if (options.analyticsEnabled && !isLocal) {

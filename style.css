@@ -239,6 +239,55 @@ ons-list-item.flex-dir {
   }
 }
 
+@media (min-width: 1024px) {
+  /* start hybrid menu  mod */
+  ons-toolbar.toolbar+.page__background+.page__content, .toolbar.toolbar--material+.page__background+.page__content {
+    top: 130px; /* 88 when there aren't too many site options */
+  }
+  #menu {
+    transform: translate3d(-50%, 44px, 0px);
+    min-width: 100%;
+    left: 50%;
+    height: 100px;
+  }
+  #menu .page--material, .toolbar.toolbar--material+.page__background+.page__content {
+    margin-top: 14px;
+  }
+  #menu ons-page {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  #menu ons-page .page__background {
+    background: transparent !important;
+  }
+  #menu ons-list:nth-child(3) {
+    text-align: right;
+    background: transparent;
+  }
+  #menu ons-list-item {
+    width: auto;
+    height: 44px;
+    display: inline-flex;
+    padding: 0 6px;
+  }
+  #menu .list-item--material {
+    height: 48px;
+  }
+  #menu .list-item__left {
+    padding-right: 6px;
+  }
+  #menu .list-item--chevron:before, ons-toolbar-button[icon="md-menu"], #menu ons-list-title {
+    display: none;
+  }
+  #menu .list-item__center {
+    background-image: none;
+  }
+  #menu .list-item--material__left {
+    min-width: 48px;
+  }
+  /* end hybrid menu  mod */
+}
+
 @media (min-width: 1200px) {
   .tabbar {
     border-radius: 0 0 6px 6px;
@@ -550,13 +599,13 @@ body.darkness {
 .darkness tr:first-child th, th {
   color: #81aadf;
 }
-.darkness .fa-iota-icon, .darkness .iota-icon {
+.fa-iota-icon, .iota-icon {
   width: 1em;
-  height: 1.25em;
+  height: 1rem;
   vertical-align: middle;
   background-image: url(img/iota_icon_light.svg);
   background-repeat: no-repeat;
-  background-position: right 2px center;
+  background-position: right 10px center;
   background-size: contain;
 }
 .sunshine .fa-iota-icon, .sunshine .iota-icon {
