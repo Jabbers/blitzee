@@ -80,11 +80,13 @@ var blitzee = function(options) {
     document.querySelector('ons-modal').onclick = function() {
       this.hide();
     };
+
     // Theme switchin' across the universe.. on the Starship Enterprise, under capt'n Kirk
     document
       .getElementById('switchStyle')
       .addEventListener('change', switchTheme);
     initializeTheme();
+
   });
 
   // Exposing public methods through return statement. Public/private methods are below.
@@ -239,6 +241,26 @@ var blitzee = function(options) {
     if (page.id) {
       var index = options.pageUrls.indexOf(page.id);
       console.log('initializing page ' + index + ': ' + page.id);
+
+      // Hide the options on scroll
+      var scrollValue = 0;
+      var menuPage = document.querySelector('#menu .page');
+      page
+        .querySelector('.page__content')
+        .addEventListener(
+          'scroll',
+          function(e) {
+            var delta = this.scrollTop - scrollValue;
+            if (Math.abs(delta) > 8) {
+              var doHide = delta > 0 && scrollValue > 36;
+              page.classList.toggle('scrolled', doHide);
+              menuPage.classList.toggle('scrolled', doHide);
+              scrollValue = this.scrollTop;
+            }
+          },
+          false
+        );
+
       // Run functions defined in options.pageScripts
       if (typeof options.pageScripts[page.id] == 'function') {
         options.pageScripts[page.id]();
