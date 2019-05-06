@@ -116,7 +116,7 @@ th:first-child, td:first-child {
 .toolbar .mobile {
   display: inline;
 }
-.desktop, .tablet {
+.desktop, .tablet, .hide {
   display: none;
 }
 ons-toolbar ons-back-button {
@@ -132,9 +132,6 @@ ons-card .list-header {
 ons-button ons-icon {
   margin-right: .5em;
 }
-.toolbar__right .button {
-  display:none;
-}
 ons-list-item.flex-dir {
   width: auto;
   float: left;
@@ -145,7 +142,8 @@ ons-list-item.flex-dir {
 }
 .button--inline {
   min-height: initial;
-  padding: 0 10px 1px;
+  padding-left: 10px;
+  padding-right: 10px;
   margin-right: .3em;
 }
 .flash {
@@ -157,9 +155,6 @@ ons-list-item.flex-dir {
 }
 
 @media (min-width: 350px) {
-  .toolbar__right .button {
-    display: inline-block;
-  }
   footer {
     background: url(img/iota_icon_light.svg) right center/contain no-repeat;
     padding-right: 6em;
@@ -216,15 +211,12 @@ ons-list-item.flex-dir {
   ons-list-item ons-button.button--large {
     font-size: 14px;
   }
-  ons-list-item.desktop {
+  .desktop, ons-list-item.desktop {
     display: none;
   }
 }
 
 @media (min-width: 768px) {
-  .desktop, ons-list-item.desktop {
-    display: block;
-  }
   p, h2, h3, h4, input {
     -webkit-user-select: text;
     -moz-user-select: text;
@@ -239,10 +231,16 @@ ons-list-item.flex-dir {
   }
 }
 
+@media (min-width: 840px) {
+  .desktop, ons-list-item.desktop {
+    display: block;
+  }
+}
+
 @media (min-width: 1024px) {
   /* start hybrid menu  mod */
   ons-toolbar.toolbar+.page__background+.page__content, .toolbar.toolbar--material+.page__background+.page__content {
-    top: 110px; /* 88 when there aren't too many site options */
+    top: 112px; /* 88 when there aren't too many site options */
   }
   #menu ons-list:first-child, #options ons-list-item:first-child {
     border-radius: 0 0 0 .5em;
@@ -260,7 +258,11 @@ ons-list-item.flex-dir {
     transform: translate3d(-50%, 44px, 0px);
     min-width: 100%;
     left: 50%;
-    height: 100px;
+    height: 86px;
+    overflow-y: visible;
+  }
+  #menu .page--material {
+    height: 112px;
   }
   #menu .page--material, .toolbar.toolbar--material+.page__background+.page__content {
     margin-top: 14px;
@@ -277,7 +279,7 @@ ons-list-item.flex-dir {
     background: transparent;
   }
   #menu ons-list#options ons-list-item {
-    background-color: rgba(42,45,50,0.8);
+    background-color: rgba(42,45,50,0.3);
   }
   #menu ons-list-item {
     width: auto;
@@ -305,6 +307,7 @@ ons-list-item.flex-dir {
   ons-fab.fab {
     display: none;
   }
+
 }
 
 @media (min-width: 1200px) {
@@ -492,7 +495,7 @@ caption {
   border-radius: 2em 2em 0 0;
 }
 .button--inline {
-  line-height: 1.3;
+  line-height: initial;
   font-size: .9em;
 }
 
@@ -590,6 +593,9 @@ body.darkness {
 .sunshine #exchange-info ons-card img {
   filter: none;
 }
+.sunshine ons-carousel {
+  background-color: white;
+}
 .darkness ons-list {
   background-color: #2a2d32;
 }
@@ -617,6 +623,9 @@ body.darkness {
 }
 .darkness tr:first-child th, th {
   color: #81aadf;
+}
+footer .button {
+  color: #202327;
 }
 .fa-iota-icon, .iota-icon {
   width: 1em;

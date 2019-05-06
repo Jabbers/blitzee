@@ -87,6 +87,8 @@ var blitzee = function(options) {
       .addEventListener('change', switchTheme);
     initializeTheme();
 
+    initializeAutoCarousels();
+
   });
 
   // Exposing public methods through return statement. Public/private methods are below.
@@ -296,20 +298,41 @@ var blitzee = function(options) {
   function switchTheme(event) {
     document.body.classList.toggle('sunshine');
     document.body.classList.toggle('darkness');
-    // event.value is true for Sunshine
-    document.querySelector('link[title=Sunshine]').disabled = !event.value;
-    localStorage.setItem('style', event.value ? 'Sunshine' : 'Darkness');
+    // event.value is true for Darkness
+    document.querySelector('link[title=Sunshine]').disabled = event.value;
+    localStorage.setItem('style', event.value ? 'Darkness' : 'Sunshine');
   }
 
   function initializeTheme(event) {
-    if (localStorage.getItem('style') == 'Sunshine') {
-      document.querySelector('link[title=Sunshine]').disabled = false;
+    if (localStorage.getItem('style') === 'Darkness') {
       document.body.classList.toggle('sunshine');
       document.body.classList.toggle('darkness');
       document.getElementById('switchStyle').checked = true;
+    } else {
+      document.querySelector('link[title=Sunshine]').disabled = false;
     }
   }
-};
+
+  function initializeAutoCarousels(event) {
+    setInterval(function() {
+      var cars = document.getElementsByTagName('ons-carousel');
+      for (var i = 0; i < cars.length; i++) {
+        if (cars[i].getAttribute('blitzee-play') !== null) {
+          if (cars[i].getAttribute('blitzee-prev') === null) {
+            cars[i].setAttribute('blitzee-prev', -1);
+          }
+          var index = cars[i].getActiveIndex();
+          if (cars[i].getAttribute('blitzee-prev') == index) {
+            cars[i].first();
+          } else {
+            cars[i].next();
+          }
+          cars[i].setAttribute('blitzee-prev', index);
+        }
+      }
+    }, 3000);
+  }
+}
 
 // Polyfills
 if (!Element.prototype.matches) {
